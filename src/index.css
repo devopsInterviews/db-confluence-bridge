@@ -2,39 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Modern Database Sync Tool Design System */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Brand Colors - Tech/Database Theme */
+    --background: 220 17% 7%;
+    --background-secondary: 220 17% 9%;
+    --background-card: 220 17% 11%;
+    --foreground: 220 9% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 17% 11%;
+    --card-foreground: 220 9% 95%;
+    --card-border: 220 17% 17%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 17% 11%;
+    --popover-foreground: 220 9% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Electric Blue for Database Actions */
+    --primary: 217 91% 60%;
+    --primary-foreground: 220 17% 7%;
+    --primary-hover: 217 91% 65%;
+    --primary-glow: 217 91% 60%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Cyan for Success States */
+    --secondary: 189 85% 65%;
+    --secondary-foreground: 220 17% 7%;
+    --secondary-hover: 189 85% 70%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Accent - Purple for Special Elements */
+    --accent: 266 85% 65%;
+    --accent-foreground: 220 9% 95%;
+    --accent-hover: 266 85% 70%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Muted States */
+    --muted: 220 17% 17%;
+    --muted-foreground: 220 9% 65%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Borders and Inputs */
+    --border: 220 17% 17%;
+    --input: 220 17% 17%;
+    --input-focus: 217 91% 60%;
+    --ring: 217 91% 60%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Status Colors */
+    --success: 158 64% 52%;
+    --success-foreground: 220 17% 7%;
+    --warning: 48 96% 53%;
+    --warning-foreground: 220 17% 7%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 220 9% 95%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(189 85% 65%));
+    --gradient-secondary: linear-gradient(135deg, hsl(266 85% 65%), hsl(217 91% 60%));
+    --gradient-hero: linear-gradient(135deg, hsl(220 17% 7%) 0%, hsl(220 17% 11%) 50%, hsl(217 91% 60% / 0.1) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(220 17% 11%), hsl(220 17% 13%));
+
+    /* Shadows and Glows */
+    --shadow-card: 0 4px 6px -1px hsl(220 17% 5% / 0.5), 0 2px 4px -1px hsl(220 17% 5% / 0.3);
+    --shadow-glow: 0 0 20px hsl(217 91% 60% / 0.3);
+    --shadow-glow-strong: 0 0 40px hsl(217 91% 60% / 0.4);
+
+    /* Animation Timings */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --radius: 0.5rem;
 
@@ -100,6 +134,107 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--gradient-hero);
+    min-height: 100vh;
   }
+
+  /* Custom Utility Classes */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-card-border;
+    box-shadow: var(--shadow-card);
+  }
+
+  .glow-effect {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .glow-effect-strong {
+    box-shadow: var(--shadow-glow-strong);
+  }
+
+  .smooth-transition {
+    transition: var(--transition-smooth);
+  }
+
+  .bounce-transition {
+    transition: var(--transition-bounce);
+  }
+}
+
+@layer components {
+  /* Database Form Styles */
+  .db-input {
+    @apply w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder:text-muted-foreground smooth-transition;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary;
+  }
+
+  .db-select {
+    @apply w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground smooth-transition;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary;
+  }
+
+  .db-button-primary {
+    @apply px-6 py-3 bg-primary hover:bg-primary-hover text-primary-foreground font-medium rounded-lg smooth-transition;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50 disabled:cursor-not-allowed;
+    background: var(--gradient-primary);
+  }
+
+  .db-button-secondary {
+    @apply px-6 py-3 bg-secondary hover:bg-secondary-hover text-secondary-foreground font-medium rounded-lg smooth-transition;
+    @apply focus:outline-none focus:ring-2 focus:ring-secondary/50;
+  }
+
+  /* Loading Animation */
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { 
+      transform: scale(1);
+      box-shadow: var(--shadow-glow);
+    }
+    50% { 
+      transform: scale(1.05);
+      box-shadow: var(--shadow-glow-strong);
+    }
+  }
+
+  /* Floating Animation */
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Slide In Animation */
+  .slide-in-up {
+    animation: slide-in-up 0.6s ease-out;
+  }
+
+  @keyframes slide-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Stagger Animation for Cards */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
 }
